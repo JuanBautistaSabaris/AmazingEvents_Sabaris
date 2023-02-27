@@ -1,0 +1,154 @@
+* {
+     margin: 0;
+    padding :0;
+}
+.nav-item{  
+    background-color: rgb(255, 0, 111);
+    }
+
+.slider{
+    font-size: 40px;
+    background-color: bisque;
+}
+
+.nav{
+    background-color: rgb(242, 141, 9);
+}
+nav img {
+    max-width: 150px;
+}
+
+.form-check-input {
+    margin: 0 0.5rem;
+}
+
+.form-check-input:focus {
+    border-color: rgba(0, 255, 149, 0.907);
+    box-shadow: none;
+}
+
+.form-check-input:checked {
+    border-color: rgba(0, 0, 0, 0.25);
+    background-color: #f40b0b;
+}
+
+.card-bottom a:hover, button[type="submit"]:hover {
+    background-color: #ff0101!important;
+    color: #F0EEED!important;
+}
+
+
+.navbar-toggler {
+    display: grid;
+    justify-self: end;
+}
+
+.navbar-collapse {
+    align-items: end;
+}
+
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+
+.nav-link {
+    color: #F0EEED;
+    padding: 0;
+}
+
+.nav-link:hover {
+    box-shadow: 0 2px #d90368;
+}
+
+.card {
+    width: 18rem;
+    height: 22rem;
+    padding: 0.5rem;
+    background-color: #F0EEED;
+}
+
+.card-image {
+    height: 9rem;
+    margin: 0.5rem;
+    background-repeat: no-repeat;
+    background-size: cover;
+    box-shadow:  -3px -3px 4px #37ff00,
+                  3px 3px 4px #37ff00;
+}
+
+#card-1{
+    background-image: url(../images/Cinema.jpg);
+}
+
+#card-2{
+    background-image:url(../images/Costume_Party.jpg);
+}
+
+#card-3{
+    background-image: url(../images/Food_Fair.jpg);
+}
+
+#card-4{
+    background-image: url(../images/Museum_Tour.jpg);
+}
+
+#card-5{
+    background-image: url(../images/Marathon.jpg);
+}
+
+#card-6{
+    background-image: url(../images/Music_Concert.jpg);
+}
+
+.card-bottom a, button[type="submit"] {
+    background-color: #5d38ad;
+    color: #212529;
+    box-shadow:  -4px -4px 6px #888888,
+                4px 4px 6px #ffffff;
+}
+
+.card-bottom {
+    margin: auto 0.5rem 0.25rem 0.5rem;
+}
+
+footer {
+    font-size: 2rem;
+}
+
+.contact-form {
+    background-color: #e2e2e2;
+    border: 10px solid rgba(0, 0, 0, 0.125);
+}
+
+.text-start {
+    font-size: large;
+    font-weight: 500;
+}
+
+.details-card {
+border: 1px solid rgba(0, 0, 0, 0.125);
+background-color: #F0EEED;
+}
+
+.details-image {
+box-shadow:  -3px -3px 4px #f90202,
+              3px 3px 4px #f50000;
+}
+
+.details-data {
+border: 1px solid rgb(30, 0, 255);
+}
+
+.details-data ul {
+list-style-type: none;
+list-style-position: inside;
+}
+
+.details-data li>span {
+font-weight: bold;
+}
+
+#event-img{
+    text-align: center;
+    font-weight:bold ;
+}
