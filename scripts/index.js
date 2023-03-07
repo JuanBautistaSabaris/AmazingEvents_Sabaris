@@ -10,31 +10,30 @@ let checkRace = document.getElementById("caterace");
 let checkBookExchange = document.getElementById("catebookexchange");
 let checkCinema = document.getElementById("catecinema");
 
-let cardsSection = document.getElementById("cards");
-
-for (let i = 0; i < events.length; i++) {
-    let div =
-        document.createElement("div");
-        div.classList.add('card');
-        div.classList.add('d-flex');
-        div.classList.add('flex-column');
-        div.setAttribute('id', `card${events[i]._id}`);
+function cardCreator(eventsArray) {
+    let dFrag = document.createDocumentFragment();
+    for (let i = 0; i < eventsArray.length; i++) {
+        let div = document.createElement("div");
+        div.classList.add('card', 'd-flex', 'flex-column');
+        div.setAttribute('id', `card${eventsArray[i]._id}`);
         div.innerHTML =
-            `<div class="card-image" id="event${events[i]._id}"></div>  
+            `<div class="card-image" id="bg-event${eventsArray[i]._id}"></div>  
             <div class="card-body">
-                <h5 class="card-title text-center">${events[i].name}</h5>
-                <p class="text-center">${events[i].description}</p>
+                <h5 class="card-title text-center">${eventsArray[i].name}</h5>
+                <p class="text-center">${eventsArray[i].description}</p>
             </div>
             <div class="row card-bottom d-flex align-items-baseline">
                 <div class="col text-center">
-                    <p>Price: $ ${events[i].price}</p>
+                    <p>Price: $ ${eventsArray[i].price}</p>
                 </div>
                 <div class="col btn-details p-0">
-                    <a href="#" class="btn btn-sm w-100">Details</a>
+                    <a href="../pages/details.html" class="btn btn-sm w-100">Details</a>
                 </div>
             </div>`;
-        document.getElementById("cards").appendChild(div);
-        document.getElementById(`event${events[i]._id}`).style.backgroundImage = `url(${events[i].image})`;
+        dFrag.appendChild(div)
+        dFrag.getElementById(`bg-event${eventsArray[i]._id}`).style.backgroundImage = `url(${eventsArray[i].image})`;
+    }
+    document.getElementById("cards").appendChild(dFrag);
 }
 
 let checkedCategories = [
@@ -46,27 +45,31 @@ let checkedCategories = [
     {checkbox: checkBookExchange, category: "Book Exchange"},
     {checkbox: checkCinema, category: "Cinema"}]
 
-for (let checkedCategory of checkedCategories) {
-    (checkedCategory.checkbox).addEventListener("change", function() {
-    
-        if (!(checkedCategory.checkbox).checked) {
-            for (let i = 0; i < events.length; i++){
-                if (checkedCategory.category == (events[i].category)) {
-                    document.getElementById(`card${events[i]._id}`).classList.remove('d-flex');
-                    document.getElementById(`card${events[i]._id}`).style.display = `none`;
+function visibleCards(eventsArray) {
+    for (let checkedCategory of checkedCategories) {
+        (checkedCategory.checkbox).addEventListener("change", function changeDisplay() {
+        
+            if (!(checkedCategory.checkbox).checked) {
+                for (let i = 0; i < eventsArray.length; i++){
+                    if (checkedCategory.category == (eventsArray[i].category)) {
+                        document.getElementById(`card${eventsArray[i]._id}`).classList.remove('d-flex');
+                        document.getElementById(`card${eventsArray[i]._id}`).style.display = `none`;
+                    }
+                }
+            } else {
+                for (let i = 0; i < eventsArray.length; i++){
+                    if (checkedCategory.category == (eventsArray[i].category)) {
+                        document.getElementById(`card${eventsArray[i]._id}`).classList.add('d-flex');
+                        document.getElementById(`card${eventsArray[i]._id}`).removeAttribute('style');
+                    }
                 }
             }
-        } else {
-            for (let i = 0; i < events.length; i++){
-                if (checkedCategory.category == (events[i].category)) {
-                    document.getElementById(`card${events[i]._id}`).classList.add('d-flex');
-                     document.getElementById(`card${events[i]._id}`).removeAttribute('style');
-                }
-            }
-            
-        }
-})
+        })
+    }
 }
+
+cardCreator(events);
+visibleCards(events);
 
 
    
