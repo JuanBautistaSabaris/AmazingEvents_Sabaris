@@ -113,6 +113,7 @@ nav img {
 
 footer {
     font-size: 2rem;
+    background-color: #888888;
 }
 
 .contact-form {
@@ -125,30 +126,44 @@ footer {
     font-weight: 500;
 }
 
-.details-card {
-border: 1px solid rgba(0, 0, 0, 0.125);
-background-color: #F0EEED;
+#cardsDetails{
+    width: 80%;
+    background-color: #1907e3;
 }
 
-.details-image {
-box-shadow:  -3px -3px 4px #f90202,
-              3px 3px 4px #f50000;
+#cardImg{
+    width: 93%;
+    height: 93%;
+    object-fit: cover;
+    box-shadow: 4px 4px 4px 3px rgba(0, 0, 0, 0.39);
 }
 
-.details-data {
-border: 1px solid rgb(30, 0, 255);
+.btn-details{
+    background-color: rgb(253, 102, 8);
+    border-style: solid;
+    border-color: black;
+}
+.go:hover{
+    background-color: rgb(247, 9, 9);
 }
 
-.details-data ul {
-list-style-type: none;
-list-style-position: inside;
+.form-check-input{
+    background-color: #fcf80b;
+    border-color: #ff57b9;
+}
+.form-check-input:checked{
+    background-color: #06f11d;
+    
 }
 
-.details-data li>span {
-font-weight: bold;
+main{
+    background-color: #888888;
+}
+body{
+    background-color: #888888;
 }
 
-#event-img{
-    text-align: center;
-    font-weight:bold ;
+.bot{
+    margin-top:2rem;
+    background-color: #888888;
 }
