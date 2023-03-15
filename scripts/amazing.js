@@ -114,7 +114,7 @@ const data = {
         "image":"https://i.postimg.cc/zv67r65z/15kny.jpg",
         "name":"15K NY",
         "date":"2022-03-01",
-        "description":"We'll be raising funds for hospitals and medical care in this unique event held in The Big Apple.",
+        "description":"We'll be raising funds for hospitals and care in this unique event held in The Big Apple.",
         "category":"Race",
         "place":"New York",
         "capacity":3000000,
