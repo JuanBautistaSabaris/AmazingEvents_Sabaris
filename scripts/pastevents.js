@@ -13,18 +13,16 @@ const searchInput = document.querySelector('.formSearch > input');
 const searchButton = document.querySelector('.formSearch > button');
 const checkContainer = document.getElementById('formCategories');
 
-//Funcion para el Search
 function filterBySearch(array, name){
     let filtersArray = array.filter(e => e.name.toLowerCase().includes(name.toLowerCase()));
     return filtersArray;
 }
-//Filtrado por categorias
+
 function filterByCategories(array){
     const checkedValues = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(input => input.value);
     return checkedValues.length > 0 ? array.filter(e => checkedValues.includes(e.category)) : array;
 }
 
-//Función para que funcionen juntos
 function ultraFilter(event){
     event.preventDefault();
     divCardsPastEvents.innerHTML=``;
