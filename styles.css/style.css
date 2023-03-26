@@ -156,14 +156,21 @@ footer {
     
 }
 
-main{
-    background-color: #888888;
+table{
+    border: 1px solid rgb(0, 0, 0);
+    width: 100%;
 }
-body{
-    background-color: #888888;
+th{
+    background-color: rgba(238, 130, 238, 0.459);
+    border: 1px solid rgb(0, 0, 0);
+    padding: 0.5rem;
 }
-
-.bot{
-    margin-top:2rem;
-    background-color: #888888;
+tr{
+    height: 1rem;
+    padding: 0.5rem;
+}
+td{
+    border: 1px solid rgb(0, 0, 0);
+    width: 33%;
+    padding: 0.3rem;
 }
