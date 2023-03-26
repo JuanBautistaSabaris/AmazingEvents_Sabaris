@@ -1,36 +1,31 @@
-import data from "./amazing.js";
-import { visibleEvents, cardCreator, showCategoriesInCheckboxes } from './functions.js';
+import { visibleEvents, cardCreator, showCategoriesInCheckboxes, filtersUnited } from './functions.js';
+let divCardsIndex = document.getElementById('cardsIndex');
+let searchForm = document.querySelector('.formSearch');
+let searchInput = document.querySelector('.formSearch > input');
+let searchButton = document.querySelector('.formSearch > button');
+let checkContainer = document.getElementById('formCategories');
+let route = "./pages/";
 
-
-const divCardsIndex = document.getElementById('cardsIndex');
-const route = "./pages/";
-let cards = visibleEvents(data.events, divCardsIndex, cardCreator, route);
-let checkboxesCategories = showCategoriesInCheckboxes(data.events);
-
-const searchForm = document.querySelector('.formSearch');
-const searchInput = document.querySelector('.formSearch > input');
-const searchButton = document.querySelector('.formSearch > button');
-const checkContainer = document.getElementById('formCategories');
-
-function filterBySearch(array, name){
-    let filtersArray = array.filter(e => e.name.toLowerCase().includes(name.toLowerCase()));
-    return filtersArray;
+async function startIndex(){
+    await fetch("/json/amazing.json")
+        .then(response => response.json())
+        .then(data => {
+            const events = data.events; 
+            visibleEvents(events, divCardsIndex, cardCreator, route);
+            showCategoriesInCheckboxes(events, checkContainer);
+            searchInput.addEventListener('input', () => {
+                filtersUnited(divCardsIndex, events, searchInput.value, route)
+            });
+            searchForm.addEventListener('submit', () => {
+                filtersUnited(divCardsIndex, events, searchInput.value, route)
+            });
+            searchButton.addEventListener('click', () => {
+                filtersUnited(divCardsIndex, events, searchInput.value, route)
+            });
+            checkContainer.addEventListener('change', () => {
+                filtersUnited(divCardsIndex, events, searchInput.value, route)
+            });
+        })
+        .catch(error => alert(" Error. Couldn't load data.", error));
 }
-
-function filterByCategories(array){
-    const checkedValues = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(input => input.value);
-    return checkedValues.length > 0 ? array.filter(e => checkedValues.includes(e.category)) : array;
-}
-
-function filtersUnited(event){
-    event.preventDefault();
-    divCardsIndex.innerHTML=``;
-    let filterArrayName = filterBySearch(data.events, searchInput.value);
-    let filterAll = filterByCategories(filterArrayName);
-    visibleEvents(filterAll, divCardsIndex, cardCreator, route);
-}
-
-searchInput.addEventListener('input', filtersUnited);
-searchForm.addEventListener('submit', filtersUnited);
-searchButton.addEventListener('click', filtersUnited);
-checkContainer.addEventListener('change', filtersUnited);
+startIndex();

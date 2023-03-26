@@ -76,30 +76,6 @@ nav img {
                   3px 3px 4px #37ff00;
 }
 
-#card-1{
-    background-image: url(../images/Cinema.jpg);
-}
-
-#card-2{
-    background-image:url(../images/Costume_Party.jpg);
-}
-
-#card-3{
-    background-image: url(../images/Food_Fair.jpg);
-}
-
-#card-4{
-    background-image: url(../images/Museum_Tour.jpg);
-}
-
-#card-5{
-    background-image: url(../images/Marathon.jpg);
-}
-
-#card-6{
-    background-image: url(../images/Music_Concert.jpg);
-}
-
 .card-bottom a, button[type="submit"] {
     background-color: #5d38ad;
     color: #212529;
@@ -116,6 +92,10 @@ footer {
     background-color: #888888;
 }
 
+header{
+    min-height: 7vh;
+}
+
 .contact-form {
     background-color: #e2e2e2;
     border: 10px solid rgba(0, 0, 0, 0.125);
@@ -128,7 +108,8 @@ footer {
 
 #cardsDetails{
     width: 80%;
-    background-color: #1907e3;
+    background-color: #3725ffcb;
+   color: rgb(32, 215, 228);
 }
 
 #cardImg{
@@ -156,14 +137,34 @@ footer {
     
 }
 
-main{
-    background-color: #888888;
+table{
+    border: 1px solid rgb(0, 0, 0);
+    width: 100%;
 }
-body{
-    background-color: #888888;
+th{
+    background-color: rgba(19, 250, 31, 0.903);
+    border: 1px solid rgb(255, 0, 0);
+    padding: 0.5rem;
+}
+tr{
+    height: 1rem;
+    padding: 0.5rem;
+}
+td{
+    border: 1px solid rgb(255, 0, 0);
+    width: 33%;
+    padding: 0.3rem;
 }
 
+main{
+    background-color: #c1bdbd;
+    min-height: 87vh
+}
+body{
+    background-color: #c1bdbd;
+    max-height: 100vh;
+}
 .bot{
     margin-top:2rem;
-    background-color: #888888;
+    background-color: #c1bdbd;
 }

@@ -1,37 +1,33 @@
-import data from "./amazing.js";
-import { visibleEvents, cardCreator, showCategoriesInCheckboxes } from './functions.js';
+import { visibleEvents, cardCreator, showCategoriesInCheckboxes, filtersUnited } from './functions.js';
+let divCardsPastEvents = document.getElementById('cardsPastEvents');
+let searchForm = document.querySelector('.formSearch');
+let searchInput = document.querySelector('.formSearch > input');
+let searchButton = document.querySelector('.formSearch > button');
+let checkContainer = document.getElementById('formCategories');
 
-const divCardsPastEvents = document.getElementById('cardsPastEvents');
-const pastEvents = data.events.filter((event) => {
-    return event.date < data.currentDate;});
-let cards = visibleEvents(pastEvents, divCardsPastEvents, cardCreator);
-
-let checkboxesCategories = showCategoriesInCheckboxes(pastEvents);
-
-const searchForm = document.querySelector('.formSearch');
-const searchInput = document.querySelector('.formSearch > input');
-const searchButton = document.querySelector('.formSearch > button');
-const checkContainer = document.getElementById('formCategories');
-
-function filterBySearch(array, name){
-    let filtersArray = array.filter(e => e.name.toLowerCase().includes(name.toLowerCase()));
-    return filtersArray;
+async function startPast(){
+    await fetch("/json/amazing.json")
+        .then(response => response.json())
+        .then(data => {
+            const currentDate = data.currentDate; 
+            const events = data.events; 
+            let pastEvents = events.filter((event) => {
+                return event.date < currentDate;});
+            visibleEvents(pastEvents, divCardsPastEvents, cardCreator);
+            showCategoriesInCheckboxes(pastEvents, checkContainer);
+            searchInput.addEventListener('input', ()=>{
+                filtersUnited(divCardsPastEvents, pastEvents, searchInput.value)
+            });
+            searchForm.addEventListener('submit', ()=>{
+                filtersUnited(divCardsPastEvents, pastEvents, searchInput.value)
+            });
+            searchButton.addEventListener('click', ()=>{
+                filtersUnited(divCardsPastEvents, pastEvents, searchInput.value)
+            });
+            checkContainer.addEventListener('change', ()=>{
+                filtersUnited(divCardsPastEvents, pastEvents, searchInput.value)
+            });
+        })
+        .catch(error => alert("Error. Couldn't load data.", error));
 }
-
-function filterByCategories(array){
-    const checkedValues = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(input => input.value);
-    return checkedValues.length > 0 ? array.filter(e => checkedValues.includes(e.category)) : array;
-}
-
-function ultraFilter(event){
-    event.preventDefault();
-    divCardsPastEvents.innerHTML=``;
-    let filterArrayName = filterBySearch(pastEvents, searchInput.value);
-    let filterAll = filterByCategories(filterArrayName);
-    visibleEvents(filterAll, divCardsPastEvents, cardCreator);
-}
-
-searchInput.addEventListener('input', ultraFilter);
-searchForm.addEventListener('submit', ultraFilter);
-searchButton.addEventListener('click', ultraFilter);
-checkContainer.addEventListener('change', ultraFilter);
+startPast();
