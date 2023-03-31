@@ -15,6 +15,7 @@
 </head>
 
 <body>
+  <div id="appUpcoming">
     <header>
         <nav class="navbar navbar-expand-md navbar-dark bg-dark p-2" id="navp">
           <div class="container-fluid d-flex flex-wrap justify-content-between align-items-center">
@@ -53,7 +54,6 @@
             </div>
           </div>
         </nav>
-    
 
          <div class="slider container-fluid">
         <div class="row d-flex align-items-center">
@@ -75,18 +75,77 @@
 </header>
 
 <main>
-  <form class="d-flex justify-content-between flex-wrap pt-2">
-    <div id="formCategories" class="d-flex flex-wrap formCategories">
-    </div>
+  <div v-show="cardsBoolean">
+    <form class="d-flex justify-content-between flex-wrap pt-2">
+        <div id="formCategories" class="d-flex flex-wrap formCategories">
+            <div v-for="category of categories" class="d-flex flex-wrap form-check form-switch">
+                <label class="d-inline-flex my-2 mx-2">
+                    <input v-model="categoriesSelected" class="form-check-input me-3" :value="category" role="switch" :for="category" :id="category" type="checkbox">{{category}}
+                </label>
+            </div>
+        </div>
     <div class="d-flex me-4 formSearch">
-      <input class="form-control d-inline-flex mx-2 px-5" type="text" placeholder="Find the events you want" aria-label="Search">
-      <button class="btn" type="submit" >
-        <i class="bi bi-search"></i>
-        </button>
+        <input  v-model="inputText" class="form-control d-inline-flex mx-2 px-5" type="text" placeholder="Find the events you want" aria-label="Search">
+        <button class="btn" type="submit" >
+          <i class="bi bi-search"></i>
+        </button>   
     </div>
-</form>
+    {{filtersUnited}}
+  </form>
+</div>
 
-<div id="cardsUpcomingEvents" class="cards d-flex justify-content-around flex-wrap mt-4">
+<div class="d-flex justify-content-center align-items-center">
+  <h1 class="text-center" v-if="cardsUpcomingEvents == 0" >Event not found. Check that it is well written.</h1>
+</div>
+<h1 v-if="!cardsUpcomingEvents.lenght == 0" class="text-center">Couldn't load data</h1>
+<div id="cardsIndex" class="cards d-flex justify-content-around flex-wrap mt-4">            
+  <div v-show="cardsBoolean" v-for="card of cardsUpcomingEvents" class="card mx-2 my-2">
+      <img :src="card.image" class="card-img-top" :alt="card.category">
+      <div class="card-body text-center">
+          <h5 class="card-title">{{card.name}}</h5>
+          <p class="card-text">{{card.description}}</p>
+          <div class="d-flex justify-content-between">
+              <p class="pt-2">Price: ${{card.price}}</p>
+              <button @click="goDetails(card._id)" class="btn btn-nav align-self-center go">Details</button>
+          </div>
+      </div>
+  </div>
+</div>
+<div v-show="cardDetailsBoolean">
+  <div class="container d-flex justify-content-center">
+      <div class="card my-3" id="cardDetails">
+          <div  class="row g-0">
+              <div class="col-md-6 d-flex justify-content-center align-items-center">
+                  <img :src="cardDetails.image" id="cardImg" class="img-fluid borderRadius " :alt="cardDetails.name">
+              </div>
+              <div class="col-md-6">
+                  <div class="card-body">
+                      <dl class="card-text">
+                          <dt>Name</dt>
+                          <dd>{{cardDetails.name}}</dd>
+                          <dt>Date</dt>
+                          <dd>{{cardDetails.date}}</dd>
+                          <dt>Description</dt>
+                          <dd>{{cardDetails.description}}</dd>
+                          <dt>Category</dt>
+                          <dd>{{cardDetails.category}}</dd>
+                          <dt>Place</dt>
+                          <dd>{{cardDetails.place}}</dd>
+                          <dt>Capacity</dt>
+                          <dd>{{cardDetails.capacity}}</dd>
+                          <dt>{{cardDetails.assistance ? "Asistence" : "Estimate"}}</dt>
+                          <dd>{{cardDetails.assistance || cardDetails.estimate}}</dd>
+                          <dt>Price</dt>
+                          <dd>{{cardDetails.price}}</dd>
+                      </dl>
+                      <div class="d-flex justify-content-end">
+                          <button @click="goHome()" class="btn btn-details align-self-center go">Go Back </button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
 </div>
 </main>
 
@@ -111,9 +170,11 @@
       </div>
     </div>
  </footer>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
         crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
         <script type="module" src="../scripts/upcomingevents.js"></script>
 </body>
 </html>

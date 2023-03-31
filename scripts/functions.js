@@ -1,3 +1,4 @@
+//Función que obtiene las categorías únicas de los eventos
 const uniqueCategories = (events) => {
     return events.reduce((acc, curr) => {
         if (!acc.includes(curr.category)) {
@@ -23,12 +24,14 @@ const createCategoryCheckboxes = (array) => {
     return fragmentForm;
 }
 
+// Función que muestra los checkboxes en el formulario
 const showCategoriesInCheckboxes = (array,container) => {
     let formCategories = container;
     let fragmentForm = createCategoryCheckboxes(array);
     let showCategories = formCategories.appendChild(fragmentForm);
 }
 
+//Función para crear las cards de los eventos 
 function cardCreator(event, route) {
     let div = document.createElement("div");
     div.classList = "card mx-2 my-2";
@@ -65,6 +68,7 @@ function visibleEvents(events, container, renderFunction, route) {
     renderCards(events, container, renderFunction, route);
 }
 
+//Función para crear las Cards de Details según el ID
 function detailsCardCreator(event, container) {
     let div = document.createElement('div');
     div.classList='row g-0';
@@ -100,17 +104,19 @@ function detailsCardCreator(event, container) {
     return container.appendChild(div)
 }
 
+//Filtro del Search
 function filterBySearch(array, name){
     let filtersArray = array.filter(e => e.name.toLowerCase().includes(name.toLowerCase()));
     return filtersArray;
 }
 
+//Filtro de las categorias
 function filterByCategories(array){
     let checkedValues = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(input => input.value);
     return checkedValues.length > 0 ? array.filter(e => checkedValues.includes(e.category)) : array;
 }
 
-
+//Función para que los filtros funcionen juntos
 function filtersUnited(container, array, name, route="./"){
     window.event.preventDefault();
     container.innerHTML=``;
@@ -119,6 +125,7 @@ function filtersUnited(container, array, name, route="./"){
     visibleEvents(filterAll, container, cardCreator, route);
 }
 
+//Función que obtiene el nombre del evento con mayor porcentaje de asistencia
 function eventMostAssistance(array){
     let eventHighestAttendance = "";
     let highestAttendancePercentage = -1;
@@ -132,6 +139,7 @@ function eventMostAssistance(array){
     return eventHighestAttendance 
 }
 
+//Función que obtiene el nombre del evento con menor asistencia
 function eventLowestAssistance(array) {
     let eventsLowestAttendance = "";
     let lowestAttendancePercentage = 101;
@@ -145,6 +153,7 @@ function eventLowestAssistance(array) {
     return eventsLowestAttendance;
 }
 
+//Funcion que devuelve el nombre del evento con mayor capacidad
 function eventLargerCapacity(array) {
     let eventLargestCapacity = array.reduce((prevEvent, actualEvent) => {
         return (prevEvent.capacity > actualEvent.capacity) ? prevEvent : actualEvent;
@@ -160,6 +169,7 @@ function introduceData(array,container){
     container.appendChild(tr);
 }
 
+//Funcion para calcular las ganancias totales utilizando assistance o estimate según corresponda
 function calculateRevenues(events){
     let revenues = 0;
     events.forEach(event => {
@@ -169,6 +179,7 @@ function calculateRevenues(events){
     return revenues;
 }
 
+//Funcion para calcular el porcentaje de asistencia
 function calculateAttendancePercentage(events){
     let totalAssistance = events.reduce((total, event) => {
         return total + ((event.assistance ? event.assistance : event.estimate));
@@ -179,6 +190,7 @@ function calculateAttendancePercentage(events){
     return ((totalAssistance / capacity) * 100).toFixed(2);
 }
 
+//Función para crear las filas con las columnas, muestra las ganancias y el porcentaje de asistencia por categoría. 
 function tableRowCreator(category, revenues, attendancePercentage, container){
     const tr = document.createElement("tr");
     tr.innerHTML = `<td>${category}</td>
@@ -187,6 +199,7 @@ function tableRowCreator(category, revenues, attendancePercentage, container){
     container.appendChild(tr);
 }
 
+//Función que agrupa por categorías, mostrando las ganancias y el porcentaje de asistencia por categoria.
 function groupByCategory(array, container) {
     const groupedCategories = {};
     array.forEach((event) => {
@@ -203,7 +216,5 @@ function groupByCategory(array, container) {
         tableRowCreator(category, revenues, attendancePct, container);
     }
 }
-
-
 
 export { cardCreator, renderCards, visibleEvents, showCategoriesInCheckboxes, detailsCardCreator, filtersUnited, introduceData, groupByCategory,};
