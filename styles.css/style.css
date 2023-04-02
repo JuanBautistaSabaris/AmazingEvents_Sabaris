@@ -37,10 +37,6 @@ nav img {
     color: #F0EEED!important;
 }
 
-.card-bottom button:hover, button[type="submit"]:hover {
-    background-color: #ff0101!important;
-    color: #F0EEED!important;
-}
 
 .navbar-toggler {
     display: grid;
@@ -87,14 +83,6 @@ nav img {
                 4px 4px 6px #ffffff;
 }
 
-.card-bottom button, button[type="submit"] {
-    background-color: #5d38ad;
-    color: #212529;
-    box-shadow:  -4px -4px 6px #888888,
-                4px 4px 6px #ffffff;
-}
-
-
 .card-bottom {
     margin: auto 0.5rem 0.25rem 0.5rem;
 }
@@ -118,8 +106,8 @@ header{
     font-weight: 500;
 }
 
-#cardDetails{
-    width: 90%;
+#cardsDetails{
+    width: 80%;
     background-color: #3725ffcb;
    color: rgb(32, 215, 228);
 }
