@@ -1,64 +1,31 @@
-const { createApp } = Vue
-const app = createApp({
-    data(){
-        return {
-            cards:[],
-            allCards:[],
-            cardDetails:{},
-            cardDetailsBoolean: false,
-            cardsBoolean: true,
-            cardsPastEvents:[],
-            cardsUpcomingEvents:[],
-            categories: [],
-            categoriesSelected:[],
-            inputText:'',
-        }
-    },
-    created(){
-        this.getData()
-    },
-    mounted(){
-    },
-    methods:{
-        getData(){
-            fetch("./json/amazing.json")
-                .then(response => response.json())
-                .then(data => {
-                    this.cards = data.events
-                    this.allCards = this.cards
-                    this.getCategories(data.events)
-                    this.cardsPastEvents = data.events.filter((e)=>e.date < data.currentDate)                   
-                })
-                .catch(error => alert("Error. Couldn't load data.", error))
-        },
+import { visibleEvents, cardCreator, showCategoriesInCheckboxes, filtersUnited } from './functions.js';
+let divCardsIndex = document.getElementById('cardsIndex');
+let searchForm = document.querySelector('.formSearch');
+let searchInput = document.querySelector('.formSearch > input');
+let searchButton = document.querySelector('.formSearch > button');
+let checkContainer = document.getElementById('formCategories');
+let route = "./pages/";
 
-        getCategories(array){
-            array.forEach(e =>{
-                if(!this.categories.includes(e.category)){
-                    this.categories.push(e.category)
-                }
-            })
-        },
-
-        goDetails(id){
-            this.cardDetails = this.cards.find(card => card._id == id),
-            this.cardsBoolean = false,
-            this.cardDetailsBoolean = true            
-        },
-        
-        goHome(){
-            this.cardDetailsBoolean = false,
-            this.cardsBoolean = true
-        },
-    },
-    computed:{
-        filtersUnited(){
-            let firstFilter = this.cards.filter(card => card.name.toLowerCase().includes(this.inputText.toLowerCase()))
-            if(!this.categoriesSelected.length){
-                this.allCards = firstFilter
-            } else {
-                this.allCards = firstFilter.filter(card => this.categoriesSelected.includes(card.category))
-            }
-        }
-    }
-}).mount('#appIndex')
+async function startIndex(){
+    await fetch("/json/amazing.json")
+        .then(response => response.json())
+        .then(data => {
+            const events = data.events; 
+            visibleEvents(events, divCardsIndex, cardCreator, route);
+            showCategoriesInCheckboxes(events, checkContainer);
+            searchInput.addEventListener('input', () => {
+                filtersUnited(divCardsIndex, events, searchInput.value, route)
+            });
+            searchForm.addEventListener('submit', () => {
+                filtersUnited(divCardsIndex, events, searchInput.value, route)
+            });
+            searchButton.addEventListener('click', () => {
+                filtersUnited(divCardsIndex, events, searchInput.value, route)
+            });
+            checkContainer.addEventListener('change', () => {
+                filtersUnited(divCardsIndex, events, searchInput.value, route)
+            });
+        })
+        .catch(error => alert(" Error. Couldn't load data.", error));
+}
+startIndex();
