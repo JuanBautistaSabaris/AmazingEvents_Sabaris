@@ -95,27 +95,28 @@
   </form>
 </div>
 
-<div class="d-flex justify-content-center align-items-center">
+<div class="container-fluid my-5 d-flex flex-wrap align-items-center justify-content-center grid gap-3">
   <h1 class="text-center" v-if="cardsPastEvents == 0" >Event not found. Check that it is well written.</h1>
-</div>
 <h1 v-if="!cardsPastEvents.lenght == 0" class="text-center">Couldn't load data</h1>
-<div id="cardsIndex" class="cards d-flex justify-content-around flex-wrap mt-4">            
   <div v-show="cardsBoolean" v-for="card of cardsPastEvents" class="card mx-2 my-2">
-      <img :src="card.image" class="card-img-top" :alt="card.category">
-      <div class="card-body text-center">
-          <h5 class="card-title">{{card.name}}</h5>
-          <p class="card-text">{{card.description}}</p>
-          <div class="d-flex justify-content-between">
-              <p class="pt-2">Price: ${{card.price}}</p>
-              <button @click="goDetails(card._id)" class="btn btn-nav align-self-center go">Details</button>
+      <img :src="card.image" class="card-image" :alt="card.category">
+      <div class="card-body">
+          <h5 class="card-title text-center">{{card.name}}</h5>
+          <p class="text-center">{{card.description}}</p>
+          <div id="cardsIndex" class="row card-bottom d-flex align-items-baseline">          
+          <div class="col text-center">
+              <p>Price: ${{card.price}}</p>
           </div>
-      </div>
-  </div>
+              <div class="col btn-details p-0">
+                <button @click="goDetails(card._id)" class="btn btn-sm w-100">Details</button>
+              </div>
+          </div>
+   </div>
+ </div>
 </div>
 
 <div v-show="cardDetailsBoolean">
-  <div class="container d-flex justify-content-center">
-      <div class="card my-3" id="cardDetails">
+      <div class="container my-5" id="cardDetails">
           <div  class="row g-0">
               <div class="col-md-6 d-flex justify-content-center align-items-center">
                   <img :src="cardDetails.image" id="cardImg" class="img-fluid borderRadius " :alt="cardDetails.name">
@@ -147,7 +148,6 @@
               </div>
           </div>
       </div>
-  </div>
 </div>
 </main>
 
